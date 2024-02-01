@@ -1,6 +1,5 @@
 use async_channel::Sender;
-
-use gtk::*;
+use gtk::{*};
 use log::error;
 use std::os::unix::net::UnixListener;
 

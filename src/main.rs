@@ -7,40 +7,47 @@ use gtk::*;
 use gtk_layer_shell::{Edge, Layer, LayerShell};
 use log::info;
 
-mod socket;
+//mod socket;
 mod ui;
 mod widgets;
 
 /// Initializes the status bar.
 fn activate(application: &Application) {
-    let window = ApplicationWindow::new(application);
-    window.connect_screen_changed(set_visual);
-    window.connect_draw(draw);
+macro_rules! activate{
+    ($widget:ident $left:ident $right:ident ) => {
+    let $widget = ApplicationWindow::new(application);
+    $widget.connect_screen_changed(set_visual);
+    $widget.connect_draw(draw);
 
-    LayerShell::init_layer_shell(&window);
-    LayerShell::set_layer(&window, Layer::Top);
-    LayerShell::auto_exclusive_zone_enable(&window);
+    LayerShell::init_layer_shell(&$widget);
+    LayerShell::set_layer(&$widget, Layer::Top);
 
     let display = Display::default().expect("couldnt get display");
     let monitor = display.monitor(0).expect("couldnt get monitor");
 
     let anchors = [
-        (Edge::Left, true),
-        (Edge::Right, true),
+        (Edge::Left, $left),
+        (Edge::Right, $right),
         (Edge::Top, true),
         (Edge::Bottom, false),
     ];
     for (anchor, state) in anchors {
-        LayerShell::set_anchor(&window, anchor, state);
+        LayerShell::set_anchor(&$widget, anchor, state);
     }
 
-    LayerShell::set_namespace(&window, "gtk-layer-shell");
+    LayerShell::set_namespace(&$widget, "gtk-layer-shell");
 
-    LayerShell::set_monitor(&window, &monitor);
-    window.set_app_paintable(true);
+    LayerShell::set_monitor(&$widget, &monitor);
+    $widget.set_app_paintable(true);
 
-    ui::display_widgets(&window);
+    ui::display_widgets(&$widget, stringify!($widget));
+
+          };
 }
+activate!(right false true);
+activate!(left true false);
+activate!(center false false);
+   }
 
 /// Applies custom visuals.
 fn set_visual(window: &ApplicationWindow, screen: Option<&Screen>) {
@@ -54,13 +61,8 @@ fn set_visual(window: &ApplicationWindow, screen: Option<&Screen>) {
 
 /// Draws the window using a custom color and opacity.
 fn draw(_: &ApplicationWindow, ctx: &cairo::Context) -> Propagation {
-    let r = 24. / 255.;
-    let g = 24. / 255.;
-    let b = 37. / 255.;
-    let a = 0.0;
-
     // Apply
-    ctx.set_source_rgba(r, g, b, a);
+    ctx.set_source_rgba(0.0,0.0,0.0,0.0);
     ctx.set_operator(cairo::Operator::Screen);
     ctx.paint().expect("couldnt draw");
 
@@ -89,13 +91,13 @@ async fn main() {
 
     color_eyre::config::HookBuilder::default()
         .display_location_section(false)
-        .panic_section("something broke :3")
+        .panic_section("something brokie :3")
         .display_env_section(false)
         .install()
         .unwrap();
 
     let app = Application::builder()
-        .application_id("dev.sioodmy.crabpulsar")
+        .application_id("dev.sioodmy.grajap.crabpulsar")
         .build();
 
     app.connect_startup(|_| load_scss());

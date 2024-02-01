@@ -1,7 +1,6 @@
 use anyhow::Result;
 use glib::*;
 use gtk::{traits::*, *};
-use log::warn;
 use std::fs;
 
 use crate::socket::make_socket;
@@ -43,11 +42,7 @@ pub fn add_widget(pos: &Box) -> Result<()> {
 
     glib::spawn_future_local(clone!(@weak label => async move {
         while let Ok(()) = receiver.recv().await {
-            if let Ok(brightness) = get_brightness() {
-                label.set_label(&brightness)
-            } else {
-                warn!("Could't get brightness value");
-            }
+            label.set_label(&get_brightness().unwrap());
         }
     }));
 
