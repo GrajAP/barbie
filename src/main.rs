@@ -7,7 +7,7 @@ use gtk::*;
 use gtk_layer_shell::{Edge, Layer, LayerShell};
 use log::info;
 
-//mod socket;
+mod socket;
 mod ui;
 mod widgets;
 

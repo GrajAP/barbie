@@ -1,8 +1,8 @@
 use gtk::*;
 
-//pub mod battery;
-//pub mod brightness;
-//pub mod volume;
+pub mod battery;
+pub mod brightness;
+pub mod volume;
 pub mod clock;
 pub mod hyprland;
 pub mod sys;

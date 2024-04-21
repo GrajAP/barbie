@@ -4,7 +4,7 @@ $surface0: #313244;
 $mauve: #cba6f7;
 * {
   color:$mauve;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 700;
   font-family: "Iosevka Nerd Font";
   padding: 0;
@@ -24,7 +24,7 @@ $mauve: #cba6f7;
   border-style: solid;
   border-radius: 0px 0px 0px 7px;
 }
-#sys{
+#battery{
   margin: 0px ;
   background: $base;
   padding: 1px 11px;

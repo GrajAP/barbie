@@ -16,7 +16,7 @@ pub fn display_widgets(window: &ApplicationWindow, pos: &str) {
         };
     }
     match pos {
-        "left" => add!(sys),
+        "left" => add!(battery),
         "right" => add!(clock),
         "center" => add!(hyprland),
         _ => ()
