@@ -55,7 +55,7 @@
           };
 
 
-        
+
         devShells.default = pkgs.mkShell {
           RUST_LOG = "info";
           buildInputs = with pkgs;
@@ -70,10 +70,10 @@
         };
       };
       flake = {
-        homeManagerModule = self.homeManagerModules.crabpulsar ; # an alias to the default module
+        homeManagerModule = self.homeManagerModules.barbie; # an alias to the default module
         homeManagerModules = rec {
-          crabpulsar = import ./hmModule.nix inputs.self;
-          default = crabpulsar;
+          barbie = import ./hmModule.nix inputs.self;
+          default = barbie;
         };
       };
     };

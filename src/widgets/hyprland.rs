@@ -43,11 +43,11 @@ fn workspace_name() -> String{
     for i in 0..workspace.len() {
 //    if Workspace::get_active().unwrap().id == i as i32 {}
     label.push_str(match workspace[i as usize] {
-        1 => " ",
-        2 => "󰈹 ",
-        3 => " ",
-        4 => "󰙯 ",
-        5 => "󰋄 ",
+        1 => "  ",
+        2 => "󰈹  ",
+        3 => "  ",
+        4 => "󰙯  ",
+        5 => "󰋄  ",
         6 => "VI ",
         7 => "VII ",
         8 => "VII ",

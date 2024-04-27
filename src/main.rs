@@ -23,7 +23,11 @@ macro_rules! activate{
     LayerShell::set_layer(&$widget, Layer::Top);
 
     let display = Display::default().expect("couldnt get display");
-    let monitor = display.monitor(0).expect("couldnt get monitor");
+    let monitor_result = display.monitor(1);
+    let monitor = match monitor_result{
+        Some(monitor) => monitor,
+        _ => display.monitor(0).expect("couldn't get monitor"),
+    };
 
     let anchors = [
         (Edge::Left, $left),
@@ -87,7 +91,7 @@ fn load_scss() {
 #[tokio::main]
 async fn main() {
     pretty_env_logger::init();
-    info!("Starting CrabPulsar");
+    info!("Starting barbie");
 
     color_eyre::config::HookBuilder::default()
         .display_location_section(false)
@@ -97,7 +101,7 @@ async fn main() {
         .unwrap();
 
     let app = Application::builder()
-        .application_id("dev.sioodmy.grajap.crabpulsar")
+        .application_id("dev.grajap.barbie")
         .build();
 
     app.connect_startup(|_| load_scss());
